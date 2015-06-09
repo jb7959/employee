@@ -1,0 +1,81 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @employee.name %>
+</p>
+
+<p>
+  <strong>Adress:</strong>
+  <%= @employee.adress %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @employee.payment_type %>
+</p>
+
+<%# 급여타입에 따른 show 변경 %>
+<p>
+  <% if @employee.payment_type == 'salary' %>
+  <strong><%= 'salary'%>:</strong>
+  <%= @employee.salary  %>
+  
+  <% elsif @employee.payment_type == 'hourly' %>
+  <strong><%= 'hourly_rate'%>:</strong>
+  <%= @employee.hourly_rate  %>
+  
+  <% elsif @employee.payment_type == 'commision' %>
+  <strong><%= 'commision_rate' %>:</strong>
+  <%= @employee.commision_rate * 100 %>
+  <%='%'%></br>
+  <strong><%= 'salary'%>:</strong>
+  <%= @employee.salary%>
+  <% end %>
+</p>
+<%# 급여타입에 따른 show 변경 종료 %>
+
+<p>
+  <strong>Affiliation type:</strong>
+  <%= @employee.Affiliation_type %>
+</p>
+
+
+<%# 조합가입 따른 show 변경 %>
+<p>
+  <% if @employee.Affiliation_type == 'unionAffiliation' %>
+  <strong><%= 'Dues'%>:</strong>
+  <%= @employee.Dues  %>
+  <% elsif @employee.Affiliation_type == 'noAffiliation' %>
+  <strong><%= 'Dues'%>:</strong>
+  <strong><%= '조합비없음'%></strong>
+  <% end %>
+</p>
+<%# 조합가입 따른 show 종료 %>
+
+
+
+<%# 급여지급타입에 따른 show 변경 %>
+<p>
+  <% if @employee.payment_method_type == 'hold' %>
+  <strong><%= 'salary'%>:</strong>
+  <%= @employee.salary  %>
+  <% elsif @employee.payment_method_type == 'direct' %>
+  <strong><%= 'Bank Name'%>:</strong>
+  <%= @employee.bank_name  %><br>
+  <strong><%= 'Bank account'%>:</strong>
+  <%= @employee.bank_account  %><br>
+  
+  <% elsif @employee.payment_method_type == 'mail' %>
+  <strong><%= 'Mail_address'%>:</strong>
+  <%= @employee.mail_address%>
+  <% end %>
+</p>
+<%# 급여지급타입에 따른 show 변경종료 %>
+
+<p>
+  <%= @employee.payment_method_type %>
+</p>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

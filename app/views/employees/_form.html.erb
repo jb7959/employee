@@ -1,0 +1,126 @@
+<%= simple_form_for(@employee) do |f| %>
+  <% if @employee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+
+      <ul>
+      <% @employee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :adress %><br>
+    <%= f.text_area :adress %>
+  </div>
+  <!--<div class="field">
+    <%#= f.input :payment_type, collection: [ ['월급', 'salary'], ['시급', 'hourly'], ['수당', 'commision'] ],prompt: "급여 타입을 선택하세요." %>
+  </div> -->
+  
+  <!-------------------- 급여계약타입시작------------------------------------>
+  <div class="field">
+    <div class="form-group select optional employee_payment_type">
+      <label class="select optional control-label" for="employee_payment_type">Payment type</label>
+    <select class="select optional form-control" id="employee_payment_type" name="employee[payment_type]" onChange="javascript:selectEvent(this)">
+      <option value="">급여 계약타입을 선택하세요.</option>
+      <option value="salary">월급</option>
+      <option value="hourly">시급</option>
+      <option value="commision">수당</option></select></div>
+  </div>
+ 
+  <!-- 자바스크립트를 이용하여 이벤트 처리 및 DOM 관리 급여계약타입 -->
+   <script type="text/javascript">
+			function selectEvent(selectObj) {
+				if (selectObj.value == 'salary'){
+				  var output ='<%= f.label :salary %><br><%= f.number_field :salary %><br>';
+				  document.getElementById('salary_type').innerHTML = output;
+				}
+				else if(selectObj.value == 'hourly'){
+  				var output ='<%= f.label :hourly_rate %><br><%= f.number_field :hourly_rate %><br>';
+  				document.getElementById('salary_type').innerHTML = output;
+			  }
+			 	else if(selectObj.value == 'commision'){
+  		    var output =' <%= f.label :commision_rate %><br><%= f.text_field :commision_rate %><br><%= f.label :salary %><br><%= f.number_field :salary %><br>';
+  				document.getElementById('salary_type').innerHTML = output;
+			  }}
+		</script>
+		
+		
+  <div class="field" id ="salary_type">
+  </div>
+  <!-------------------- 급여계약타입종료------------------------------------>
+  
+  
+  <!-------------------- 조합가입여부시작------------------------------------>
+  <div class="field">
+    <div class="form-group select optional employee_Affiliation_type">
+      <label class="select optional control-label" for="employee_Affiliation_type"><br>Affiliation type</label>
+      <select class="select optional form-control" id="employee_Affiliation_type" name="employee[Affiliation_type]" onChange="javascript:selectEvent2(this)">
+    
+    <option value="">조합가입여부를선택하세요..</option>
+    <option value="unionAffiliation">가입</option>
+    <option value="noAffiliation">미가입</option></select></div>
+  </div>
+    
+    
+  <!-- 자바스크립트를 이용하여 이벤트 처리 및 DOM 관리 -->
+   <script type="text/javascript">
+			function selectEvent2(selectObj) {
+				if (selectObj.value == 'unionAffiliation'){
+				  var output ='<%= f.label :Dues %><br><%= f.text_field :Dues %>';
+				  document.getElementById('affiliation').innerHTML = output;
+				}
+				else document.getElementById('affiliation').innerHTML = '';
+			}
+		</script>  
+  
+  
+ 
+  <div class="field" id='affiliation'>
+  </div>
+   <!-------------------- 조합가입여부종료------------------------------------>
+   
+   
+   <!-------------------- 급여지급타입시작------------------------------------>
+  
+   <div class="field">
+    <div class="form-group select optional employee_payment_method_type">
+      <label class="select optional control-label" for="employee_payment_method_type">Payment method type</label>
+      <select class="select optional form-control" id="employee_payment_method_type" name="employee[payment_method_type]" onChange="javascript:selectEvent3(this)">
+        <option value="">급여 지급 타입을 선택하세요.</option>
+        <option value="hold">경리부수령</option>
+        <option value="direct">은행송금</option>
+        <option value="mail">우편</option></select></div>
+  </div>
+  
+  
+   <!-- 자바스크립트를 이용하여 이벤트 처리 및 DOM 관리 -->
+   <script type="text/javascript">
+			function selectEvent3(selectObj) {
+				if(selectObj.value == 'direct'){
+  				var output ='<%= f.label :bank_name %><br><%= f.text_field :bank_name %><br><%= f.label :bank_account %><br><%= f.text_field :bank_account %>';
+  				document.getElementById('payment_method').innerHTML = output;
+			  }
+			  else if(selectObj.value == 'mail'){
+  				var output ='<%= f.label :mail_address %><br><%= f.text_field :mail_address %>';
+  				document.getElementById('payment_method').innerHTML = output;
+			  }
+			  else document.getElementById('payment_method').innerHTML = '';
+			}
+		</script> 
+		
+	<div class="field" id='payment_method'>
+  </div>
+ <!-------------------- 급여지급타입종료------------------------------------>
+ 
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

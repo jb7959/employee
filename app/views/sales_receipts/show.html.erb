@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employees:</strong>
+  <%= @sales_receipt.employees_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @sales_receipt.date %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @sales_receipt.amount %>
+</p>
+
+<%= link_to 'Edit', edit_sales_receipt_path(@sales_receipt) %> |
+<%= link_to 'Back', sales_receipts_path %>

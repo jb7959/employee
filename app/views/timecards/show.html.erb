@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employees:</strong>
+  <%= @timecard.employees_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @timecard.date %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @timecard.time %>
+</p>
+
+<%= link_to 'Edit', edit_timecard_path(@timecard) %> |
+<%= link_to 'Back', timecards_path %>
