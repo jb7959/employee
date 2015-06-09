@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  employees_id: 1
-  date: 1
-  time: 1
+  emp_id: MyString
+  date: 2015-06-09
+  time: 2015-06-09 07:52:46
 
 two:
-  employees_id: 1
-  date: 1
-  time: 1
+  emp_id: MyString
+  date: 2015-06-09
+  time: 2015-06-09 07:52:46

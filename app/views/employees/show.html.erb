@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>emp_id:</strong>
+  <%= @employee.emp_id %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @employee.name %>
 </p>
@@ -45,7 +50,9 @@
 <p>
   <% if @employee.Affiliation_type == 'unionAffiliation' %>
   <strong><%= 'Dues'%>:</strong>
-  <%= @employee.Dues  %>
+  <%= @employee.Dues  %><br>
+  <strong><%= 'Union id'%>:</strong>
+  <%= @employee.union_id  %>
   <% elsif @employee.Affiliation_type == 'noAffiliation' %>
   <strong><%= 'Dues'%>:</strong>
   <strong><%= '조합비없음'%></strong>

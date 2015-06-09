@@ -1,1 +1,1 @@
-json.extract! @timecard, :id, :employees_id, :date, :time, :created_at, :updated_at
+json.extract! @timecard, :id, :emp_id, :date, :time, :created_at, :updated_at

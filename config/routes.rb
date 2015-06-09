@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :sales_receipts
-
   resources :timecards
+
+  resources :sales_receipts
 
   resources :employees
 

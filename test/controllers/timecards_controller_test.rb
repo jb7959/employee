@@ -18,7 +18,7 @@ class TimecardsControllerTest < ActionController::TestCase
 
   test "should create timecard" do
     assert_difference('Timecard.count') do
-      post :create, timecard: { date: @timecard.date, employees_id: @timecard.employees_id, time: @timecard.time }
+      post :create, timecard: { date: @timecard.date, emp_id: @timecard.emp_id, time: @timecard.time }
     end
 
     assert_redirected_to timecard_path(assigns(:timecard))
@@ -35,7 +35,7 @@ class TimecardsControllerTest < ActionController::TestCase
   end
 
   test "should update timecard" do
-    patch :update, id: @timecard, timecard: { date: @timecard.date, employees_id: @timecard.employees_id, time: @timecard.time }
+    patch :update, id: @timecard, timecard: { date: @timecard.date, emp_id: @timecard.emp_id, time: @timecard.time }
     assert_redirected_to timecard_path(assigns(:timecard))
   end
 

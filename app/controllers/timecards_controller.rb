@@ -15,6 +15,7 @@ class TimecardsController < ApplicationController
   # GET /timecards/new
   def new
     @timecard = Timecard.new
+    @employees = Employee.all
   end
 
   # GET /timecards/1/edit
@@ -69,6 +70,6 @@ class TimecardsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timecard_params
-      params.require(:timecard).permit(:employees_id, :date, :time)
+      params.require(:timecard).permit(:emp_id, :date, :time)
     end
 end

@@ -1,13 +1,27 @@
 <%= simple_form_for(@timecard) do |f| %>
   <%= f.error_notification %>
-
+  
   <div class="form-inputs">
-    <%= f.input :employees_id %>
+    <div class="form-group select optional timecard_employees_id">
+      <label class="select optional control-label" for="timecard_employees_id">Employees</label>
+      <select class="select optional form-control" id="timecard_employees_id" name="timecard[employees_id]">
+        <option value="">(사원번호) 이름을 선택하세요</option>
+     <%# new에서 새로운 모델의 객체 @employees를 추가 후 받아옴 %>
+        <% @employees.each do |employee| %>
+          <% if employee.payment_type == 'hourly' %>
+          <option value='<%=employee.emp_id %>'><%= '('+ employee.emp_id+ ')' +' '+ employee.name %></option>
+          <% end %>
+        <% end %>
+        </select>
+     </div>
+     
+    <%# date의 데이터형은 date, time의 데이터 형은 time%> 
     <%= f.input :date %>
     <%= f.input :time %>
   </div>
-
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+  
+  
 <% end %>
