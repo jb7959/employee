@@ -2,10 +2,10 @@
 
 one:
   emp_id: MyString
-  amount: 1
-  date: 2015-06-09
+  date: 2015-06-11
+  time: 1
 
 two:
   emp_id: MyString
-  amount: 1
-  date: 2015-06-09
+  date: 2015-06-11
+  time: 1

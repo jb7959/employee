@@ -3,9 +3,9 @@
 <table>
   <thead>
     <tr>
-      <th>Employees</th>
-      <th>Date</th>
+      <th>Emp</th>
       <th>Amount</th>
+      <th>Date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -13,9 +13,9 @@
   <tbody>
     <% @sales_receipts.each do |sales_receipt| %>
       <tr>
-        <td><%= sales_receipt.employees_id %></td>
-        <td><%= sales_receipt.date %></td>
+        <td><%= sales_receipt.emp_id %></td>
         <td><%= sales_receipt.amount %></td>
+        <td><%= sales_receipt.date %></td>
         <td><%= link_to 'Show', sales_receipt %></td>
         <td><%= link_to 'Edit', edit_sales_receipt_path(sales_receipt) %></td>
         <td><%= link_to 'Destroy', sales_receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>

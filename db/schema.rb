@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609075246) do
+ActiveRecord::Schema.define(version: 20150611060741) do
+
+  create_table "calculate_pays", force: true do |t|
+    t.string   "emp_id"
+    t.integer  "pay"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "employees", force: true do |t|
     t.string   "name"
@@ -33,17 +40,25 @@ ActiveRecord::Schema.define(version: 20150609075246) do
   end
 
   create_table "sales_receipts", force: true do |t|
-    t.integer  "employees_id"
-    t.integer  "date"
+    t.string   "emp_id"
     t.integer  "amount"
+    t.date     "date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "timecards", force: true do |t|
+  create_table "service_charges", force: true do |t|
+    t.string   "emp_id"
+    t.integer  "charge"
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "time_cards", force: true do |t|
     t.string   "emp_id"
     t.date     "date"
-    t.time     "time"
+    t.integer  "time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

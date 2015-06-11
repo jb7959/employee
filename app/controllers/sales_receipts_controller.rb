@@ -15,6 +15,7 @@ class SalesReceiptsController < ApplicationController
   # GET /sales_receipts/new
   def new
     @sales_receipt = SalesReceipt.new
+    @employees = Employee.all
   end
 
   # GET /sales_receipts/1/edit
@@ -69,6 +70,6 @@ class SalesReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sales_receipt_params
-      params.require(:sales_receipt).permit(:employees_id, :date, :amount)
+      params.require(:sales_receipt).permit(:emp_id, :amount, :date)
     end
 end

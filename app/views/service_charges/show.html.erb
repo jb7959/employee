@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Emp:</strong>
+  <%= @service_charge.emp_id %>
+</p>
+
+<p>
+  <strong>Charge:</strong>
+  <%= @service_charge.charge %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @service_charge.date %>
+</p>
+
+<%= link_to 'Edit', edit_service_charge_path(@service_charge) %> |
+<%= link_to 'Back', service_charges_path %>

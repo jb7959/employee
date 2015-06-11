@@ -15,6 +15,8 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
+    @employee2 = Employee.all
+    @union = @employee2.where(Affiliation_type: 'unionAffiliation') #where는 select * from emloyee where 'Affiliation_type' = 'unionAffiliation' 으로 만들어준다. 기존의 find 는 id만 비교.
   end
 
   # GET /employees/1/edit

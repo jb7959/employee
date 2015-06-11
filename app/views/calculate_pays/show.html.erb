@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Emp:</strong>
+  <%= @calculate_pay.emp_id %>
+</p>
+
+<p>
+  <strong>Pay:</strong>
+  <%= @calculate_pay.pay %>
+</p>
+
+<%= link_to 'Edit', edit_calculate_pay_path(@calculate_pay) %> |
+<%= link_to 'Back', calculate_pays_path %>

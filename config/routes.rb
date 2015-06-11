@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :timecards
+  resources :time_cards
+
+  resources :calculate_pays
+
+  resources :service_charges
 
   resources :sales_receipts
 

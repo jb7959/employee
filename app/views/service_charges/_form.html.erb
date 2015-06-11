@@ -1,4 +1,4 @@
-<%= simple_form_for(@sales_receipt) do |f| %>
+<%= simple_form_for(@service_charge) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -9,14 +9,14 @@
         
      <%# new에서 새로운 모델의 객체 @employees를 추가 후 받아옴 %>
         <% @employees.each do |employee| %>
-          <% if employee.payment_type == 'commision' %>
+          <% if employee.Affiliation_type == 'unionAffiliation' %>
           <option value='<%=employee.emp_id %>'><%= '('+ employee.emp_id+ ')' +' '+ employee.name %></option>
           <% end %>
         <% end %>
         </select>
      </div>
-     
-    <%= f.input :amount %>
+   
+    <%= f.input :charge %>
     <%= f.input :date %>
   </div>
 

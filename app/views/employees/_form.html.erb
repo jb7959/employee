@@ -10,12 +10,12 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :emp_id %><br>
-    <%= f.text_field :emp_id %>
+  <!-------------------- 사번시작------------------------------------>
+   <div class="field">
+    <label class="string optional" for="employee_emp_id">사번</label><br>
+    <input id="employee_emp_id" name="employee[emp_id]" type="text" value="E<%=@employee2.count %>" readonly="readonly" /> <!--읽기만 가능하고 고정 사번을 부여-->
   </div>
-
+   <!-------------------- 사번종료------------------------------------>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
@@ -39,6 +39,7 @@
       <option value="hourly">시급</option>
       <option value="commision">수당</option></select></div>
   </div>
+ 
  
   <!-- 자바스크립트를 이용하여 이벤트 처리 및 DOM 관리 급여계약타입 -->
    <script type="text/javascript">
@@ -79,13 +80,13 @@
    <script type="text/javascript">
 			function selectEvent2(selectObj) {
 				if (selectObj.value == 'unionAffiliation'){
-				  var output ='<%= f.label :Dues %><br><%= f.text_field :Dues %><br><%= f.label :union_id %><br><%= f.text_field :union_id %>';
+				  var output ='<%= f.label :union_id %><strong> ID</strong><br><input id="employee_union_id" name="employee[union_id]" type="text" value="U<%=@union.count %>" readonly="readonly" /><br><%= f.label :Dues %><br><%= f.text_field :Dues %>';
 				  document.getElementById('affiliation').innerHTML = output;
 				}
 				else document.getElementById('affiliation').innerHTML = '';
 			}
 		</script>  
-  
+  <!--읽기만 가능하고 고정 사번을 부여-->
   
  
   <div class="field" id='affiliation'>

@@ -1,0 +1,27 @@
+<h1>Listing calculate_pays</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Emp</th>
+      <th>Pay</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @calculate_pays.each do |calculate_pay| %>
+      <tr>
+        <td><%= calculate_pay.emp_id %></td>
+        <td><%= calculate_pay.pay %></td>
+        <td><%= link_to 'Show', calculate_pay %></td>
+        <td><%= link_to 'Edit', edit_calculate_pay_path(calculate_pay) %></td>
+        <td><%= link_to 'Destroy', calculate_pay, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Calculate pay', new_calculate_pay_path %>
