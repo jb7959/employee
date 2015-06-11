@@ -65,8 +65,7 @@
 <%# 급여지급타입에 따른 show 변경 %>
 <p>
   <% if @employee.payment_method_type == 'hold' %>
-  <strong><%= 'salary'%>:</strong>
-  <%= @employee.salary  %>
+ 
   <% elsif @employee.payment_method_type == 'direct' %>
   <strong><%= 'Bank Name'%>:</strong>
   <%= @employee.bank_name  %><br>
