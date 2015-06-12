@@ -2,7 +2,7 @@ class CalculatePaysController < ApplicationController
   before_action :clean_pay, only: [:index,:calculating_pay]
   before_action :calculating_pay, only: [:index]
   before_action :set_calculate_pay, only: [:show, :edit, :update, :destroy]
-
+  @@time = Time.new
   # GET /calculate_pays
   # GET /calculate_pays.json
   def index
@@ -80,10 +80,11 @@ class CalculatePaysController < ApplicationController
     @employee = Employee.all
     @timecards = TimeCard.all
     @sales_receipts = SalesReceipt.all
+    
     #월급쟁이
     @salaryman = @employee.where(payment_type: 'salary')
       @salaryman.each do |salaryman|
-        CalculatePay.create(emp_id: salaryman.emp_id, pay: salaryman.salary)
+        CalculatePay.create(emp_id: salaryman.emp_id, pay: salaryman.salary)#-salaryman.Dues) #월급 - 조합원비
       end
       
     #시급인생  
@@ -92,9 +93,21 @@ class CalculatePaysController < ApplicationController
         @someones_timecards = @timecards.where(emp_id: hourlyman.emp_id) #특정인의 타임카드수집
         totaltime = 0 #일한 종합시간 초기화
        
-        @someones_timecards.each do |somecard| totaltime += somecard.time end #특정인 총합
-        @hourlypay = hourlyman.hourly_rate * totaltime
+        @someones_timecards.each do |somecard| 
+          
+          if somecard.time >= 8
+            totaltime += (somecard.time * 1.5) # 8시간 넘었을 때 시급 1.5배 추가(시간추가해줌)
+          else
+            totaltime += somecard.time 
+          end
+        
+        p " %%%%%%%%%%%%%%%%#{somecard.date}%%%%%%%%%%%%%%%%%%%"
+        t3 = somecard.date + 30;
+        p " %%%%%%%%%$$$$$$$$$%%#{t3}@@@@@@@@@@@@@@%%%"end #특정인 총합
+        @hourlypay = hourlyman.hourly_rate * totaltime# - hourlyman.Dues #시급 * 총시간 - 조합원비
+         
         CalculatePay.create(emp_id: hourlyman.emp_id, pay: @hourlypay)
+      
       end  
       
     #수당인생
@@ -103,18 +116,21 @@ class CalculatePaysController < ApplicationController
         @someones_sales_receipts = @sales_receipts.where(emp_id: commisionman.emp_id) #특정인의 판매 영수증
         commision = 0 #일한 종합시간 초기화
        
-        @someones_sales_receipts.each do |receipts| commision += receipts.amount end #판매수량 * 수당비율 + 기본급
-        @commisionpay = commisionman.commision_rate * commision + commisionman.salary
+        @someones_sales_receipts.each do |receipts| commision += receipts.amount end #판매수량 * 수당비율 + 기본급 - 조합원비
+        @commisionpay = commisionman.commision_rate * commision + commisionman.salary #- commisionman.Dues
         CalculatePay.create(emp_id: commisionman.emp_id, pay: @commisionpay)
       end  
     end
     
-    def clean_pay
+    def clean_pay #중복되는 레코드 삭제
       @calculate_pays = CalculatePay.all
       @calculate_pays.each do |pays| pays.destroy() end
     end
     
+    def getDayOfWeekForFirstDay(targetYear=Time.new.year, targetMonth=Time.new.month)
+        # puts targetYear, targetMonth # 확인용 코드
+        return Time.local(targetYear, targetMonth, 1).wday
+    end
+    
 end
 
-## 해야할일! 20150610
-## sqlite3 의 데이터타입인 time을 integer로 바꾸는 방법 찾기.

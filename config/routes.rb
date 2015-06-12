@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :pay_days
+
   resources :time_cards
 
   resources :calculate_pays

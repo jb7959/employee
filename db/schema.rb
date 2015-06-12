@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611060741) do
+ActiveRecord::Schema.define(version: 20150612042749) do
 
   create_table "calculate_pays", force: true do |t|
     t.string   "emp_id"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20150611060741) do
     t.datetime "updated_at"
     t.string   "emp_id"
     t.string   "union_id"
+  end
+
+  create_table "pay_days", force: true do |t|
+    t.string   "emp_id"
+    t.string   "name"
+    t.string   "payment_type"
+    t.integer  "pay"
+    t.date     "lastPayday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sales_receipts", force: true do |t|

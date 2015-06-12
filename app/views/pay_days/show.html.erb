@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Emp:</strong>
+  <%= @pay_day.emp_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @pay_day.name %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @pay_day.payment_type %>
+</p>
+
+<p>
+  <strong>Pay:</strong>
+  <%= @pay_day.pay %>
+</p>
+
+<p>
+  <strong>Lastpayday:</strong>
+  <%= @pay_day.lastPayday %>
+</p>
+
+<%= link_to 'Edit', edit_pay_day_path(@pay_day) %> |
+<%= link_to 'Back', pay_days_path %>

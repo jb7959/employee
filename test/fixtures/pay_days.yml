@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  emp_id: MyString
+  name: MyString
+  payment_type: MyString
+  pay: 1
+  lastPayday: 2015-06-12
+
+two:
+  emp_id: MyString
+  name: MyString
+  payment_type: MyString
+  pay: 1
+  lastPayday: 2015-06-12
