@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612042749) do
+ActiveRecord::Schema.define(version: 20150613070734) do
 
   create_table "calculate_pays", force: true do |t|
     t.string   "emp_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150612042749) do
     t.integer  "hourly_rate"
     t.float    "commision_rate"
     t.string   "Affiliation_type"
-    t.string   "Dues"
+    t.integer  "Dues",                limit: 255, default: 0
     t.string   "payment_method_type"
     t.string   "bank_name"
     t.string   "bank_account"

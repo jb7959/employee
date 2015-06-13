@@ -127,10 +127,7 @@ class CalculatePaysController < ApplicationController
       @calculate_pays.each do |pays| pays.destroy() end
     end
     
-    def getDayOfWeekForFirstDay(targetYear=Time.new.year, targetMonth=Time.new.month)
-        # puts targetYear, targetMonth # 확인용 코드
-        return Time.local(targetYear, targetMonth, 1).wday
-    end
+    
     
 end
 

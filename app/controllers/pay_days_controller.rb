@@ -89,11 +89,15 @@ class PayDaysController < ApplicationController
           end
           
         elsif @hourlyman.where(emp_id: payment.emp_id).exists?  # @salaryman.where(emp_id: payment.emp_id).exists?는 해당 요소가 존재하는지에 대한 불린값을 제공
-           PayDay.create(emp_id: payment.emp_id, pay: payment.pay)
-          
+
+           if Time.new.wday == 6  #금요일일 경우 시급쟁이 주급계산
+              PayDay.create(emp_id: payment.emp_id, pay: payment.pay, lastPayday: Time.new)  
+           end
+
         elsif @commisionman.where(emp_id: payment.emp_id).exists?  # @salaryman.where(emp_id: payment.emp_id).exists?는 해당 요소가 존재하는지에 대한 불린값을 제공
-           PayDay.create(emp_id: payment.emp_id, pay: payment.pay)
-        
+          if (Time.new == getDayOfTwoWeeksForFriDay(2))||(Time.new == getDayOfTwoWeeksForFriDay(4)) #둘째주 또는 넷째주 금요일일 경우 수당쟁이 주급계산
+              PayDay.create(emp_id: payment.emp_id, pay: payment.pay, lastPayday: Time.new)
+          end 
         end
       
       end
@@ -103,23 +107,50 @@ class PayDaysController < ApplicationController
     
     end
     
-    def clean_pay_day #중복되는 지난 레코드 삭제
+    def clean_pay_day #중복되는 지난번 지급한 레코드 삭제
       @pay_days = PayDay.all
       @pay_days.each do |pays| 
-        if pays.lastPayday <= Time.now
+      #  if pays.lastPayday <= Time.now
           pays.destroy()
-        end
+     #   end
       end
+      p "###금요일이좋아요#####{getDayOfTwoWeeksForFriDay(4)}#########"
     end
     
     def getDayOfWeekForLastDay(targetYear=Time.new.year, targetMonth=Time.new.month) #월말 평일 확인용 함수 #인자로 변수를 선언함으로 써, 클로저Clouser 기능 사용
       returnTime = Time.local(targetYear, targetMonth+1, 1)
       if (returnTime.wday == 0) #일요일일경우 0
-        returnTime -2
+        returnTime -2*24*60*60
       elsif (returnTime.wday == 7) #토요일일경우 7
-        returnTime -1
+        returnTime -1*24*60*60
       end 
       return returnTime #.wday
+    end
+    
+    def getDayOfTwoWeeksForFriDay(temp) 
+      
+      if temp == 2  # 파라미터가 2일경우는 두번 째 금요일, 4일경우는 네번째 금요일
+        selector = 7
+      elsif temp == 4
+        selector = 21
+      end
+      
+      targetMonth=Time.new.month
+      targetYear=Time.new.year
+      returnTime = Time.local(targetYear, targetMonth, 1)
+      
+      if returnTime.wday == 0         #일요일일경우 # 매달 첫주 금요일 찾기 
+          return returnTime + (selector+5)*24*60*60 
+      elsif returnTime.wday == 1
+          return returnTime+ (selector+4)*24*60*60  # 일주일 + 4일 + 24시간 + 60분 + 60초
+      elsif returnTime.wday == 2
+          return returnTime + (selector+3)*24*60*60
+      elsif returnTime.wday == 3
+          return returnTime + (selector+2)*24*60*60
+      elsif returnTime.wday == 4
+          return returnTime + (selector+1)*24*60*60
+      end 
+       #returnTime #.wday #매달 짝수 주 금요일 찾기
     end
     
 end
