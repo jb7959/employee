@@ -80,16 +80,20 @@ class CalculatePaysController < ApplicationController
     @employee = Employee.all
     @timecards = TimeCard.all
     @sales_receipts = SalesReceipt.all
+    @service_charges = ServiceCharge.all
     
     #월급쟁이
     @salaryman = @employee.where(payment_type: 'salary')
       @salaryman.each do |salaryman|
-        CalculatePay.create(emp_id: salaryman.emp_id, pay: salaryman.salary)#-salaryman.Dues) #월급 - 조합원비
+        service_charge= service_charges_calcualting(salaryman)
+        salaryPay = salaryman.salary - salaryman.Dues - service_charge
+        CalculatePay.create(emp_id: salaryman.emp_id, pay: salaryPay) #월급 - 조합원비 - 조합원서비스비용
       end
       
     #시급인생  
     @hourlyman = @employee.where(payment_type: 'hourly')
       @hourlyman.each do |hourlyman|
+        service_charge= service_charges_calcualting(hourlyman)
         @someones_timecards = @timecards.where(emp_id: hourlyman.emp_id) #특정인의 타임카드수집
         totaltime = 0 #일한 종합시간 초기화
        
@@ -100,24 +104,22 @@ class CalculatePaysController < ApplicationController
           else
             totaltime += somecard.time 
           end
+        end #특정인 총합
         
-        p " %%%%%%%%%%%%%%%%#{somecard.date}%%%%%%%%%%%%%%%%%%%"
-        t3 = somecard.date + 30;
-        p " %%%%%%%%%$$$$$$$$$%%#{t3}@@@@@@@@@@@@@@%%%"end #특정인 총합
-        @hourlypay = hourlyman.hourly_rate * totaltime# - hourlyman.Dues #시급 * 총시간 - 조합원비
+        hourlypay = hourlyman.hourly_rate * totaltime - hourlyman.Dues - service_charge #시급 * 총시간 - 조합원비 - 조합원서비스비용
          
-        CalculatePay.create(emp_id: hourlyman.emp_id, pay: @hourlypay)
+        CalculatePay.create(emp_id: hourlyman.emp_id, pay: hourlypay)
       
       end  
       
     #수당인생
     @commisionman = @employee.where(payment_type: 'commision')
     @commisionman.each do |commisionman|
+        service_charge= service_charges_calcualting(commisionman)
         @someones_sales_receipts = @sales_receipts.where(emp_id: commisionman.emp_id) #특정인의 판매 영수증
-        commision = 0 #일한 종합시간 초기화
-       
-        @someones_sales_receipts.each do |receipts| commision += receipts.amount end #판매수량 * 수당비율 + 기본급 - 조합원비
-        @commisionpay = commisionman.commision_rate * commision + commisionman.salary #- commisionman.Dues
+        commision = 0 #판매수량총합 초기화
+        @someones_sales_receipts.each do |receipts| commision += receipts.amount end 
+        @commisionpay = commisionman.commision_rate * commision + commisionman.salary - commisionman.Dues - service_charge #판매수량 * 수당비율 + 기본급 - 조합원비 - 조합원서비스비
         CalculatePay.create(emp_id: commisionman.emp_id, pay: @commisionpay)
       end  
     end
@@ -128,6 +130,14 @@ class CalculatePaysController < ApplicationController
     end
     
     
+    def service_charges_calcualting(someone) #조합에 가입된 조합원의 서비스 charge 추출용 함수
+        totalPee = 0
+        @someones_service_charges = @service_charges.where(emp_id: someone.emp_id)
+        @someones_service_charges.each do |service_charge| 
+            totalPee+=service_charge.charge
+        end
+        return totalPee
+    end
     
 end
 

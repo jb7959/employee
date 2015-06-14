@@ -20,6 +20,7 @@ class ServiceChargesController < ApplicationController
 
   # GET /service_charges/1/edit
   def edit
+    @employees = Employee.all
   end
 
   # POST /service_charges
